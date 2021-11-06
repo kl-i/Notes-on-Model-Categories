@@ -1,0 +1,45 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+  
+\begin{rmk}
+
+  From the Ken Brown lemma,
+  we see that for a functor $F : M \to N$ between model categories,
+  it is homotopical on $M_c$ if $F$ maps acyclic cofibrations
+  between cofibrant objects to weak equivalences.
+  In the presence of a functorial factorisations
+  in the model structure of $M$,
+  we can then compute the left derived functor of $F$.
+  This partially motivates the following definition.
+\end{rmk}
+
+\begin{dfn}
+  
+  Let $F : M \to N$ be a functor between model categories.
+  Then $F$ is called \emph{left Quillen}
+  when $F(\s{C}) \subs \s{C}$ and $F(\s{W} \cap \s{C}) \subs \s{W} \cap \s{C}$.
+
+  The above dualises to \emph{right Quillen} functors.
+\end{dfn}
+
+\begin{prop}[Quillen Adjunctions]
+  
+  Let $F \dashv G : M \leftrightarrow N$ be an adjunction
+  where $F$ is left Quillen and $G$ is right Quillen.
+  Assume that $M, N$ have functorial factorisations.
+  Then the total left derived functor of $F$ and 
+  the total right derived functor of $G$ exists,
+  together forming an adjunction at the level of homotopy categories.
+  \begin{cd}
+    {\mathbf{Ho}\,M} && {\mathbf{Ho}\,N}
+    \arrow["{\mathbf{L} F}", shift left=3, from=1-1, to=1-3]
+    \arrow["{\mathbf{R}G}", shift left=3, from=1-3, to=1-1]
+    \arrow["\bot"{description}, draw=none, from=1-1, to=1-3]
+  \end{cd}
+\end{prop}
+\begin{proof}
+  Direct application of 
+  derived functors via deformations.
+\end{proof}
+
+\end{document}

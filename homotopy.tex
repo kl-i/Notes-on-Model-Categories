@@ -1,0 +1,625 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+
+\begin{rmk}
+  In this section we fulfil the promise of
+  computing the homotopy category of a $(\EE , \s{W})$
+  given a model structure $(\s{C} , \s{F})$.
+  We follow the exposition of Joyal's nCatLab.
+  Throughout this section, 
+  we fix a model catgory $(\EE , \s{W} , \s{C} , \s{F})$. 
+
+  We have already seen $\HO\,\EE \simeq \HO\,\EE_{fc}$.
+  So the goal is to give a nice description of morphisms in $\HO\,\EE_{fc}$.
+\end{rmk}
+  
+\begin{dfn}[Cylinder Object, Left Homotopy , Path Object , Right Homotopy]
+  
+  Let $A \in \EE$.
+  A \emph{cylinder object for $A$} is a factoring 
+  \footnote{
+    We don't require $IA \to A$ to be a fibration
+    because in computations it is useful not to.
+    For example, in simplicial sets $X \times \De^1 \to X$
+    is in general not a fibration.
+  }
+  \begin{cd}
+    A + A \ar[r,"\in \s{C}"] \ar[rd,"{\id{} + \id{}}"{swap}]
+      & IA \ar[d,"\in \s{W}"]\\
+      & A
+  \end{cd}
+  (not necessarily unique). 
+
+  Let $f, g : A \to X$ in $\EE$. 
+  Then a \emph{left homotopy}, $h : f \map{l}{} g$, 
+  is defined as a factoring with respect to a cylinder object $IA$ of $A$ : 
+  \begin{cd}
+    A + A \ar[rd,"{f + g}"{swap}] \ar[r] 
+      & IA \ar[d,"h"] \\
+      & X
+  \end{cd}
+
+  The above definition dualises.
+  Let $X \in \EE$.
+  A \emph{path object for $X$} is a factoring 
+  \begin{cd}
+    {X} & \\
+    {P X} & X \times X \\
+    \arrow[from=1-1, to=2-2, "{(\id{} , \id{})}"]
+    \arrow[from=1-1, to=2-1, "{\in \s{W}}"']
+    \arrow[from=2-1, to=2-2, "{\in \s{F}}"']
+  \end{cd}
+  Let $f , g : A \to X$ in $\EE$.
+  Then a \emph{right homotopy} $h : f \map{r}{} g$ is defined as a a factoring
+  of $(f , g)$ with respect to a path object $P X$ of $X$ : 
+  \begin{cd}
+    A \\
+    PX & {X\times X}
+    \arrow["h"', from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["{(f , g)}", from=1-1, to=2-2]
+  \end{cd}
+  
+\end{dfn}
+
+\begin{prop}[The Homotopy Category of a Model Category]
+  
+  Let $A , X \in \EE$.
+  Then we have the following : 
+  \begin{enumerate}
+    \item Given $A$ is cofibrant, 
+    the left homotopy relation on $\EE(A,X)$ is an equivalence relation.
+    Letting $\pi^l (A , X)$ denote the quotient by left homotopy equivalence,
+    we have a functor $\pi^l(A , \_) : \EE \to \SET$.
+    
+    Dually,
+    given $X$ is fibrant, 
+    the right homotopy relation on $\EE(A,X)$ is an equivalence relation.
+    Letting $\pi^r (A , X)$ denote the quotient by left homotopy equivalence,
+    we have a functor $\pi^r(\_, X) : \EE\op \to \SET$.
+
+    \item Given $A$ is cofibrant, 
+    the left homotopy relation on $\EE(A,X)$ implies 
+    the right homotopy relation.
+
+    Dually, given $X$ is fibrant,
+    the right homotopy relation on $\EE(A,X)$ implies 
+    the left homotopy relation.
+
+    Hence for $A$ cofibrant and $X$ fibrant,
+    the two homotopy relations coincide.
+    Letting $\pi (A , X) := \pi^r (A , X) = \pi^l (A , X)$,
+    we obtain a functor $\pi : \EE_c\op \times \EE_f \to \SET$.
+
+    \item Let $\pi \EE_{fc}$ denote the category defined by the data : 
+    \begin{itemize}
+      \item objects are fibrant-cofibrant objects of $\EE$
+      \item The functor $\pi : \EE_c\op \times \EE_f \to \SET$
+      restricts to a functor $\pi : \EE_{fc}\op \times \EE_{fc} \to \SET$.
+      We use this for the morphism functor.
+    \end{itemize}
+    There is an obvious functor $\EE_{fc} \to \pi \EE_{fc}$.
+    The result is that this exhibits $\pi \EE_{fc}$ as
+    the localisation of $\EE_{fc}$ at weak equivalences.
+    Furthermore,
+    a morphism $f : A \to X$ in $\EE_{fc}$ is a weak equivalence
+    iff it is an isomorphism in $\pi \EE_{fc}$.
+
+    \item Given the following square consists of equivalences 
+    \begin{cd}
+      {\mathbf{Ho}\,\mathcal{E}_{fc}} & {\mathbf{Ho}\,\mathcal{E}_f} \\
+      {\mathbf{Ho}\,\mathcal{E}_c} & {\mathbf{Ho} \, \mathcal{E}}
+      \arrow["\simeq"', from=1-1, to=2-1]
+      \arrow["\simeq"', from=2-1, to=2-2]
+      \arrow["\simeq", from=1-1, to=1-2]
+      \arrow["\simeq", from=1-2, to=2-2]
+    \end{cd}
+    we have that a morphism $f$ in $\EE$ is acyclic
+    iff it is inverted in $\HO\,\EE$.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  
+  \textit{(1)}
+  Let $A$ be cofibrant. 
+  The left homotopy relation is already reflexive and symmetric.
+  To show transitivity,
+  suppose we have two left homotopies : 
+  \begin{cd}
+    {A + A} & IA & {A + A} & JA \\
+    & X && X
+    \arrow["i", tail, from=1-1, to=1-2]
+    \arrow["\sim", "{H}"', from=1-2, to=2-2]
+    \arrow["{f , g}"', from=1-1, to=2-2]
+    \arrow["j", tail, from=1-3, to=1-4]
+    \arrow["{g,h}"', from=1-3, to=2-4]
+    \arrow["\sim", "{H_1}"', from=1-4, to=2-4]
+  \end{cd}
+  The key is that we can glue the two cylinders $IA$ and $JA$ together
+  by the ``end side of $IA$'' and the ``start side of $JA$''
+  to form another cylinder $KA$ whose start is $f$ and end is $h$.
+  More concretely, we define $KA$ by the following pushout : 
+  \begin{cd}
+    A & JA \\
+    IA & KA
+    \arrow["{i_1}"', from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["{j_0}", from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, 
+      draw=none, from=2-2, to=1-1]
+  \end{cd}
+  Define $k : A + A \to KA$ by setting $k_0 := A \to IA \to KA$ via $i_0$
+  and $k_1 := A \to JA \to KA$ via $j_1$.
+  Then the left homotopies $H, H_1$ glue to give
+  a morphism $H_2 : KA \to X$ such that $H_2 k_0 = f$ and $H_2 k_1 = h$.
+  It remains to show that $KA$ is a cylinder object for $A$
+  via $k : A + A \to KA$ and $KA \to A$.
+
+  First, let's show $KA \to A$ is in $\s{W}$.
+  This morphism is defined by the diagram : 
+  \begin{cd}
+    A & JA \\
+    IA & KA \\
+    & & A
+    \arrow["{i_1}"', from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["{j_0}", from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, 
+      draw=none, from=2-2, to=1-1]
+    \arrow["\sim", from=1-2, to=3-3, bend left = 15]
+    \arrow["\sim"', from=2-1, to=3-3, bend right = 15]
+    \arrow[from=2-2, to=3-3]
+  \end{cd}
+  By $\s{W}$ having two-out-of-three,
+  it suffices to show that $JA \to KA$ is in $\s{W}$.
+  Since $\s{W} \cap \s{C}$ is closed under cobase change,
+  it suffices to show that the side inclusion $i_0 : A \to IA$ is
+  an acyclic cofibration.
+  \begin{lem}
+    
+    Given a cylinder object $(IA , i , \si)$ of a cofibrant $A$,
+    we have $i_0 : A \to IA$ in $\s{W} \cap \s{C}$.
+
+    There is a dual result for path objects of fibrant objects.
+    \begin{proof1}
+      It is acyclic by two-out-of-three for $\s{W}$.
+      And it is a cofibration because it is the composition
+      $A \to A + A \to IA$ where 
+      $i : A + A \to IA$ is in $\s{C}$ by definition of cylinder objects
+      and $A \to A + A$ is the cobase change of $\nothing \to A$,
+      a cofibration as assumed.
+    \end{proof1}
+  \end{lem}
+  
+  Next, we show $k : A + A \to KA$ is a cofibration.
+  This morphism fits into the following commutative diagram
+  \begin{cd}
+    & A & \varnothing \\
+    {A + A + A + A} & {A + A + A} & {A + A} \\
+    {IA + JA} & KA
+    \arrow["{i , j}"', tail, from=2-1, to=3-1]
+    \arrow[from=3-1, to=3-2]
+    \arrow["{\id{} , (\id{} , \id{}) , \id{}}", from=2-1, to=2-2]
+    \arrow["{i_0 , \_ , j_1}"', tail, from=2-2, to=3-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, 
+      draw=none, from=3-2, to=2-1]
+    \arrow[tail, from=2-3, to=2-2]
+    \arrow[tail, from=1-3, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=1-3, to=2-3]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=90}, 
+      draw=none, from=2-2, to=1-3]
+    \arrow["k", tail, from=2-3, to=3-2]
+  \end{cd}
+
+  \textit{(2)}
+  It suffices to prove the following stronger fact : 
+  \begin{lem}
+
+    Let $(IA , i , \si)$ be a cylinder object for $A$ and
+    $(PX , \rho , e)$ a path object for $X$.
+    Suppose we have an ``open box of homotopies''
+    \begin{cd}
+      {f_{00}} & {f_{01}} \\
+      {f_{10}} & {f_{11}}
+      \arrow["{h_0}", from=1-1, to=1-2]
+      \arrow["{h_1}"', from=2-1, to=2-2]
+      \arrow["{v_0}"', from=1-1, to=2-1]
+    \end{cd}
+    where $f_{jk} : A \to X$,
+    $v_0 : f_{00} \map{}{r} f_{10}$ and 
+    $h_j : f_{j 0} \map{}{l} f_{j 1}$.
+    Suppose $A$ is cofibrant.
+    Then there exists $H : IA \to PX$ such that
+    $e_k H i_j = f_{j k}$.
+    Pictorially, we can ``complete the box with a \emph{double homotopy}''.
+    \begin{cd}
+      {f_{00}} & {f_{01}} \\
+      {f_{10}} & {f_{11}}
+      \arrow["{h_0}", from=1-1, to=1-2]
+      \arrow["{h_1}"', from=2-1, to=2-2]
+      \arrow["{v_0}"', from=1-1, to=2-1]
+      \arrow["{v_1}", from=1-2, to=2-2]
+      \arrow["{H}", from=1-1, to=2-2]
+    \end{cd}
+    
+    \begin{proof1}
+      The lemma can be formulated as finding a solution to
+      the following lifting problem
+      \begin{cd}
+        A & PX \\
+        IA & {X \times X}
+        \arrow["{i_0}"', tail, from=1-1, to=2-1]
+        \arrow["\sim", two heads, from=1-2, to=2-2]
+        \arrow["{h_0 , h_1}"', from=2-1, to=2-2]
+        \arrow["{v_0}", from=1-1, to=1-2]
+      \end{cd}
+      But we know that given $A$ cofibrant,
+      we have $i_0 \in \s{C}$.
+      Hence we have a solution since acyclic fibrations
+      right lift against cofibrations.
+    \end{proof1}
+  \end{lem}
+  Now, given $A$ cofibrant and a left homotopy $h_1 : f \map{}{l} g$,
+  we get a right homotopy $v_1 : f \map{}{r} g$ by
+  completing the following open box of homotopies
+  \begin{cd}
+    f & f \\
+    f & g
+    \arrow["{h_1}"', from=2-1, to=2-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=1-1, to=1-2]
+    \arrow["{v_1}", dashed, from=1-2, to=2-2]
+    \arrow["H"{description}, dashed, from=1-1, to=2-2]
+  \end{cd}
+  where the unnamed homotopies are from reflexivity of 
+  the two homotopy relations.
+
+  \textit{(3)}
+  First, we show that $\EE_{fc} \to \pi\EE_{fc}$ inverts weak equivalences.
+  To that end, 
+  we prove a lemma which can be used to show
+  when a functor from cofibrant objects is homotopical.
+
+  \begin{lem}[Kenneth Brown]
+    
+    Let $F : \EE_c \to C$ where $C$ is a category with
+    a class of morphisms $W$ satisfying identities and two-out-of-three.
+    Suppose $F(\s{W} \cap \s{C}) \subs W$.
+    Then $F(\s{W}) \subs W$.
+
+    There is a dual result for $F : \EE_f \to C$
+    with $F(\s{W} \cap \s{C}) \subs W$.
+    \begin{proof1}
+    
+      The new idea is that of a \emph{mapping cylinder}.
+      Given a morphism $f : A \to B$,
+      a \emph{mapping cylinder factorisation} of $f$ is
+      a factorisation 
+      \begin{cd}
+        {A + B} \\
+        {C(f)} & B
+        \arrow["{f , \id{}}", from=1-1, to=2-2]
+        \arrow[tail, from=1-1, to=2-1]
+        \arrow["\sim"', from=2-1, to=2-2]
+      \end{cd}
+      Such a factorisation can be obtained from 
+      a cylinder object $(IA , i , \si)$ of $A$ when it is cofibrant 
+      by the pushout 
+      \begin{cd}
+        {A + A} & IA \\
+        {A + B} & {C(f)} \\
+        && B
+        \arrow["i", tail, from=1-1, to=1-2]
+        \arrow["{\id{} , f}"', from=1-1, to=2-1]
+        \arrow[from=1-2, to=2-2]
+        \arrow[tail, from=2-1, to=2-2]
+        \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, 
+          draw=none, from=2-2, to=1-1]
+        \arrow["{f , \id{}}"{description}, from=2-1, to=3-3, bend right = 15]
+        \arrow["{f \si}", from=1-2, to=3-3, bend left = 15]
+        \arrow["{q_B}"{description}, dashed, from=2-2, to=3-3]
+      \end{cd}
+      To show $q_B \in \s{W}$ , it suffices to show
+      that the composition $i_B : B \to A + B \to C(f)$ is acyclic.
+      This fits into the commutative diagram of pushout squares 
+      \begin{cd}
+        A & {A + A} & IA \\
+        B & {A + B} & {C(f)}
+        \arrow["i", tail, from=1-2, to=1-3]
+        \arrow["{\id{} , f}", from=1-2, to=2-2]
+        \arrow[from=1-3, to=2-3]
+        \arrow[tail, from=2-2, to=2-3]
+        \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, 
+          draw=none, from=2-3, to=1-2]
+        \arrow["f"', from=1-1, to=2-1]
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=2-1, to=2-2]
+        \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, 
+          draw=none, from=2-2, to=1-1]
+      \end{cd}
+      So we see that $B \to C(f)$ is a cobase change of 
+      $i_0 : A \to IA$.
+      Since $A$ is cofibrant, $i_0$ is an acyclic cofibration
+      and hence so is $B \to C(f)$.
+
+      Let us now show the result.
+      Let $f : A \to B$ in $\EE_c$.
+      Via the mapping cylinder factorisation above,
+      we have 
+      \begin{cd}
+        A \\
+        {C(f)} & B
+        \arrow["f", from=1-1, to=2-2]
+        \arrow["{i_A}"', tail, from=1-1, to=2-1]
+        \arrow["{q_B}"', from=2-1, to=2-2]
+      \end{cd}
+      For $F(f) \in W$, it suffices that $F(i_A), F(q_B) \in W$.
+      We have $F(i_A)$ because it is an acyclic cofibration by
+      two-out-of-three with $q_B, f \in \s{W}$.
+      For $F(q_B)$, note that since we have 
+      \begin{cd}
+        B \\
+        {C(f)} & B
+        \arrow["{\id{}}", from=1-1, to=2-2]
+        \arrow["{i_B}"', "{\sim}", tail, from=1-1, to=2-1]
+        \arrow["{q_B}"', from=2-1, to=2-2]
+      \end{cd}
+      it suffices to show that $F(i_B) \in W$
+      by two-out-of-three for $W$.
+      Indeed we have $F(i_B) \in F(\s{W} \cap \s{C}) \subs W$ by assumption.
+    \end{proof1}
+  \end{lem}
+  We will use Yoneda's lemma to show $\EE_{fc} \to \pi\EE_{fc}$ inverts
+  weak equivalences.
+  Specifically, we show the following : 
+  \begin{lem}
+
+    Let $A$ be cofibrant.
+    Then $\pi^l(A , \_) : \EE_f \to \SET$ inverts weak equivalences.
+    In particular, for an acyclic fibration $f : X \to S$
+    where $S$ is cofibrant, the set of sections of $f$
+    is singleton up to left homotopy.
+
+    \begin{proof1}
+      
+      By the lemma of Kennth Brown,
+      it suffices to show that $\pi^l(A , \_)$ inverts
+      acyclic fibrations.
+      So let $f : X \to Y$ be an acyclic fibration.
+      Then surjectivity of $\pi^l(A, f)$ is equivalent to 
+      solving lifting problems of the form : 
+      \begin{cd}
+        \varnothing & X \\
+        A & Y
+        \arrow[tail, from=1-1, to=2-1]
+        \arrow[from=2-1, to=2-2]
+        \arrow[from=1-1, to=1-2]
+        \arrow["\sim", two heads, from=1-2, to=2-2]
+        \arrow[dashed, from=2-1, to=1-2]
+      \end{cd}
+      which we have due to $A$ being cofibrant and 
+      the WFS $(\s{C} , \s{W} \cap \s{F})$.
+      On the other hand injectivity of $\pi^l(A,f)$ 
+      is equivalent to solving lifting problems of the form : 
+      \begin{cd}
+        {A + A} & X \\
+        IA & Y
+        \arrow["i"', tail, from=1-1, to=2-1]
+        \arrow[from=2-1, to=2-2]
+        \arrow[from=1-1, to=1-2]
+        \arrow["\sim", two heads, from=1-2, to=2-2]
+        \arrow[dashed, from=2-1, to=1-2]
+      \end{cd}
+      which we also have by the same reason.
+    \end{proof1}
+  \end{lem}
+  We have thus proved that $\EE_{fc} \to \pi \EE_{fc}$ inverts
+  weak equivalences.
+  So by the UP of localisation,
+  we have a commuting triangle : 
+  \begin{cd}
+    {\mathcal{E}_{fc}} \\
+    {\mathbf{Ho}\,\mathcal{E}_{fc}} & {\pi\mathcal{E}_{fc}}
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=1-1, to=2-2]
+    \arrow["T"', from=2-1, to=2-2]
+  \end{cd}
+  The idea here is that homotopic maps are identified under
+  functors which invert weak equivalences.
+  \begin{lem}
+
+    Let $F : \EE \to C$ be a functor.
+    \begin{enumerate}
+      \item If $F$ inverts weak equivalences, then 
+      $F$ identifies left homotopic morphisms.
+      \item This is also true for functors $F : \EE_{c} \to C$
+      \item It is furthermore also true for $F : \EE_{fc} \to C$.
+    \end{enumerate}
+    \begin{proof1}
+      
+      \textit{(1)}
+      The key is that for any cylinder object $IA$ of an object $A$,
+      ``the cylinder collapses''.
+      More precisely, the morphism $IA \to A$ gets inverted under $F$,
+      and so the two inclusions $i_0, i_1 : A \to IA$ get identified.
+
+      \textit{(2)}
+      To reuse the above argument,
+      we need only to ensure any cylinder object $IA$ of 
+      cofibrant $A$ is also cofibrant.
+      But this is true since the composition 
+      $\nothing \to A \to A + A \to IA$ consists of cofibrations.
+
+      \textit{(3)}
+      We can try again to reuse the above argument,
+      in which case we need to prove that any cylinder object $IA$
+      of a fibrant-cofibrant object $A$ is also fibrant-cofibrant.
+      This is false in general. 
+      \footnote{
+        In simplicial sets, 
+        $X + X \to X \times \De^1 \to X$
+        is the standard cylinder object to take. \\
+        But one can see that for $X = \De^0$, 
+        $\De^1 \to \De^0$ is not an acyclic fibration,
+        i.e. $\De^1$ is not a Kan complex.
+      }
+      Instead, we proceed to show that we only need the existence of \emph{one} 
+      fibrant-cofibrant cylinder object $IA$ for each $A$,
+      which indeed exists by $(\s{C} , \s{W} \cap \s{F})$-factoring 
+      $A + A \to A$.
+      \begin{lem}
+
+        Let $A, X \in \EE$ where $X$ is fibrant.
+        Then the left homotopy relation on $\EE(A , X)$
+        can be defined with respect to a single cylinder object of $A$.
+
+        \begin{proof1}
+          Let $f , g : A + A \to X$,
+          $(IA , i , \si) , (JA , j , \tau)$ cylinder objects of $A$
+          and $H : IA \to X$ a left homotopy from $f$ to $g$.
+          By the WFS $(\s{W} \cap \s{C} , \s{F})$,
+          the fact that $X$ is fibrant says that 
+          we can change $IA$ along any acyclic cofibration $IA \to I'A$.
+          \begin{cd}
+            IA & X \\
+            {I'A} & \bullet
+            \arrow["\sim"', tail, from=1-1, to=2-1]
+            \arrow[from=2-1, to=2-2]
+            \arrow["H", from=1-1, to=1-2]
+            \arrow[from=1-2, to=2-2]
+            \arrow["{H'}"{description}, dashed, from=2-1, to=1-2]
+          \end{cd}
+          So we factor $\si : IA \to A$ into an acyclic cofibration 
+          followed by a fibraton to get the following commutative diagram : 
+          \begin{cd}
+            {A+ A} & IA & {I'A} \\
+            JA & A & A
+            \arrow[tail, from=1-1, to=2-1]
+            \arrow[tail, from=1-1, to=1-2]
+            \arrow["\sim"', from=2-1, to=2-2]
+            \arrow["{\id{}}"', from=2-2, to=2-3]
+            \arrow["\sim", tail, from=1-2, to=1-3]
+            \arrow[two heads, from=1-3, to=2-3]
+            \arrow["\sim"', from=1-2, to=2-2]
+            \arrow[dashed, from=2-1, to=1-3]
+          \end{cd}
+          The outter square is a lifting problem
+          to which a solution would give a left homotopy $\tilde{H} : JA \to X$
+          from $f$ to $g$.
+          But acyclicity of $IA \to A$ implies
+          $I'A \to A$ is an acyclic fibration by two-out-of-three for $\s{W}$,
+          and so we indeed have a solution.
+        \end{proof1}
+      \end{lem}
+    \end{proof1}
+  \end{lem}
+  The above result means that we have a well-defined functor $U$ making
+  the commutative triangle : 
+  \begin{cd}
+    {\mathcal{E}_{fc}} & {\pi \mathcal{E}_{fc}} \\
+    & {\mathbf{Ho}\,\mathcal{E}_{fc}} 
+    \arrow[from=1-1, to=1-2]
+    \arrow["U"', from=1-2, to=2-2]
+    \arrow[from=1-1, to=2-2]
+  \end{cd}
+  The claim is that $U, T$ are inverses.
+  For this, it suffices that both 
+  $\EE_{fc} \to \HO\,\EE_{fc}$ and $\EE_{fc} \to \pi \EE_{fc}$ are
+  epimorphisms of categories.
+  The former we have seen before.
+  For the latter, note that
+  $\EE_{fc} \to \pi \EE_{fc}$ is full and bijective on objects.
+  This concludes $\pi \EE_{fc} \iso \HO\,\EE_{fc}$ as
+  categories under $\EE_{fc}$.
+
+  Finally, let us show that a morphism $f$ in $\EE_{fc}$
+  is acyclic iff it it inverted in $\pi\EE_{fc}$.
+  The forward direction has been proved.
+  For the converse,
+  we first note that suffices to do the case that $f$ is a fibration :
+  factor $f = pu$ where $u \in \s{W} \cap \s{C}$ and $p \in \s{F}$.
+  Then we know already that $u$ is inverted in $\pi\EE_{fc}$.
+  So by two-out-of-three for $\s{W}$ and isomorphisms (in $\pi\EE_{fc}$),
+  we see that $f \in \s{W}$ iff $p \in \s{W}$ and 
+  $f$ is inverted in $\pi\EE_{fc}$ iff $p$ is.
+  
+  So WLOG assume $f : X \to Y$ is a fibration 
+  which is inverted in $\pi\EE_{fc}$.
+  This means we have a $g : Y \to X$ with 
+  $f g \sim \id{Y}$ and $g f \sim \id{X}$.
+  Notice that from $X$ cofibrant, acyclicity of morphisms out of $X$
+  is preserved along left homotopies.
+  Since $\id{X} \in \s{W}$, we have $g f \in \s{W}$.
+  Now \emph{if} $g$ was a ``true'' section of $f$,
+  i.e. $f g = \id{Y}$,
+  then we would have $f$ as a retract of $g f$.
+  \begin{cd}
+    X & X & X \\
+    Y & X & Y
+    \arrow["f"', from=1-1, to=2-1]
+    \arrow["f", from=1-3, to=2-3]
+    \arrow["g"', from=2-1, to=2-2]
+    \arrow["{\id{}}", from=1-1, to=1-2]
+    \arrow["{\id{}}", from=1-2, to=1-3]
+    \arrow["f"', from=2-2, to=2-3]
+    \arrow["{g f}"{description}, from=1-2, to=2-2]
+  \end{cd}
+  And hence we would be able to conclude that $f$ is acyclic
+  since $\s{W}$ is closed under retracts.
+
+  To that end, we seek to replace $g$ with some $s$ where $f s = \id{Y}$.
+  To ensure that $s f \in \s{W}$, it suffices to keep $g \sim s$
+  for then $s f \sim g f \sim \id{X}$.
+  We can indeed find such $s : Y \to X$ as $s = H i_1$
+  where $H$ is a solution of the lifting problem 
+  \begin{cd}
+    Y & X \\
+    IY & Y
+    \arrow["g", from=1-1, to=1-2]
+    \arrow["{i_0}"', tail, from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["f", two heads, from=1-2, to=2-2]
+    \arrow["H"{description}, dashed, from=2-1, to=1-2]
+  \end{cd}
+  where the bottom morphism exhibits $f g \sim \id{Y}$.
+
+  \textit{(4)}
+  Although we used functorial factorisations to obtain
+  the square of equivalence of homotopy categories,
+  we won't need functoriality of factorisations to show
+  the desired result.
+
+  Let $f : X \to Y$ in $\EE$.
+  Then by repeated application of factorisations
+  into $(\s{W} \cap \s{C} , \s{F})$ and $(\s{C} , \s{W} \cap \s{F})$,
+  we obtain the commutative diagram : 
+  \begin{cd}
+    & X & Y \\
+    & RX & RY & \bullet \\
+    \varnothing & WX & WY
+    \arrow[two heads, from=2-3, to=2-4]
+    \arrow["{f_1}", two heads, from=2-2, to=2-3]
+    \arrow[tail, from=3-1, to=3-2]
+    \arrow["{f_2}", tail, from=3-2, to=3-3]
+    \arrow["f", from=1-2, to=1-3]
+    \arrow["\sim"', tail, from=1-2, to=2-2]
+    \arrow["\sim", tail, from=1-3, to=2-3]
+    \arrow["\sim", two heads, from=3-2, to=2-2]
+    \arrow["\sim"', two heads, from=3-3, to=2-3]
+  \end{cd}
+  This is exactly what we would get from functorial factorisations
+  so not much surprises here.
+  We have $RX , RY$ fibrant and $W X , W Y$ fibrant-cofibrant.
+  Now we see that 
+  $f \in \s{W}$ iff $f_1 \in \s{W}$ iff $f_2 \in \s{W}$
+  iff $f_2$ is inverted in $\HO\,\EE_{fc}$
+  iff $f_1$ is inverted in $\HO\,\EE_f$
+  iff $f$ is inverted in $\HO\,\EE$
+  as desired.
+
+\end{proof}
+
+\end{document}

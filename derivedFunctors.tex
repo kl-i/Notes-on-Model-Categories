@@ -1,0 +1,167 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+
+\begin{rmk}
+  Digestion of the exposition in Riehl's \textit{Categorical Homotopy Theory}.
+\end{rmk}
+  
+\begin{dfn}
+  
+  Let $M, N$ be homotopical categories and
+  $F : M \to N$ a functor.
+
+  Let $\ga : M \to \HO M$ and $\de : N \to \HO N$ be
+  the obvious functors.
+
+  Then a \emph{total left derived functor of $F$} is defined as
+  a \emph{right} Kan extension of $\de F$ along $\ga$.
+  Unpacking the definition, this consists of the following data : 
+  \begin{itemize}
+    \item a functor $\mathbf{L} F : \HO M \to \HO N$
+    \item a natural transformation $\la : \mathbf{L} F \ga \to \de F$ such that
+    \[
+      \_\, \ga : \MOR (\_ , \mathbf{L} F) \map{\iso}{} \MOR (\_ , \de F)
+    \]
+  \end{itemize}
+  i.e. ``$\mathbf{L} F$ is the left-closest extension of $\de F$ along $\ga$''.
+  Using the equivalence $\CAT(\HO M , \HO N) \simeq \CAT_W (M , \HO N)$,
+  the above is equivalent to specifying 
+  a universal morphism $\la : \mathbf{L} F \to \de F$
+  from $\CAT_W (M , \HO \, N)$ to $\de F$.
+
+  Often, it is possible to improve the situation by finding
+  a homotopical functor $\bb{L} F : M \to N$ with $\la : \bb{L} F \to F$ 
+  such that $\de \bb{L} F$ in $\CAT(M , \HO\, N)$ corresponds to 
+  a total left derived functor of $F$.
+  \[
+    \CAT_W (M , \HO N) ( \_ , \de \bb{L} F) 
+    \map{\iso}{} \CAT (M , \HO N) ( \_ , \de F)
+  \]
+  We call such $(\bb{L} F , \la)$ a \emph{left derived functor} of $F$.
+
+  These definitions dualise to give 
+  \emph{total right derived functors} and \emph{right derived functors}.
+\end{dfn}
+
+\begin{rmk}
+  
+  The following result gives a way of constructing derived functors.
+\end{rmk}
+
+\begin{prop}[Derived Functors via Deformations]
+  
+  Let $M, N$ be homotopical categories and $F : M \to N$ a functor 
+  (not necessarily homotopical).
+
+  Define a \emph{left deformation} of $F$ to consist of the following data : 
+  \begin{itemize}
+    \item a functor $Q : M \to M$.
+    \item a natural transformation $q : Q \to \id{M}$ with
+    components in weak equivalences of $M$.
+    \item we require that $F : M_Q \to N$ is homotopical
+    where $M_Q$ is the full subcategory of $M$ consisting of 
+    objects in the image of $Q$, turned into a homotopical category via
+    endowing it with weak equivalences from $M$.
+  \end{itemize}
+
+  We have the following : 
+  \begin{enumerate}
+    \item Let $(Q, q)$ be a left deformation of $F$.
+    $(FQ , Fq)$ gives a left derived functor for $F$.
+    Furthermore,
+    this is in fact 
+    an \emph{absolute} right Kan extension of $M \to N \to \HO N$
+    along $M \to \HO \, M$.
+    \item Suppose $F \dashv G : M \rightleftharpoons N$ is an adjunction,
+    such that we have a total left derived functor $(\mathbf{L} F , \la)$ of $F$
+    and a total right derived functor $(\mathbf{R} G , \rho)$ of $G$
+    where both total derived functors are absolute Kan extensions.
+    Then we have an adjunction 
+    \begin{cd}
+      {\mathbf{Ho}\,M} && {\mathbf{Ho}\,N}
+      \arrow["{\mathbf{L} F}", shift left=3, from=1-1, to=1-3]
+      \arrow["{\mathbf{R}G}", shift left=3, from=1-3, to=1-1]
+      \arrow["\bot"{description}, draw=none, from=1-1, to=1-3]
+    \end{cd}
+  \end{enumerate}
+  that is compatible with localisation in the sense that we have 
+  the commuting square : 
+  \begin{cd}
+    {N(F m , n)} & {M(m , G n)} \\
+    {\mathbf{Ho}\,N(F m , n)} & {\mathbf{Ho}\, M(m , G n)} \\
+    {\mathbf{Ho}\,N(\mathbf{L} F m , n)} & {\mathbf{Ho}\, M (m , \mathbf{R}G n )}
+    \arrow[from=1-1, to=2-1]
+    \arrow["{\_ \lambda_m}"', from=2-1, to=3-1]
+    \arrow[from=1-2, to=2-2]
+    \arrow["{\rho_n \_}", from=2-2, to=3-2]
+    \arrow["\cong", from=1-1, to=1-2]
+    \arrow["\cong"', from=3-1, to=3-2]
+  \end{cd}
+  
+\end{prop}
+\begin{proof}
+  
+  \textit{(1)}
+  
+  Let $\de : N \to \HO N$ be the obvious functor.
+  We directly show that $(\de F Q , \de F q)$ gives an
+  absolute right Kan extension of $\de F$ along $M \to \HO \, M$.
+
+  Let $H : \HO\, N \to E$.
+  Let $G \in \CAT_W (M , E)$ where 
+  $W$ is the class of weak equivalences of $M$. 
+  We need to show a bijection : 
+  \[
+    G \to H \de F Q \SAMEAS
+    G \to H \de F
+  \]
+  via composing with $H \de F q$.
+  Let $\al : G \to H \de F$.
+  We give a unique $\al_0 : G \to H \de F Q$ such that 
+  $\al = (H \de F q) \al_0 $.
+  Suppose we have such an $\al_0$.
+  By "restricting" the commuting triangle $\al = (H \de F q ) \al_0$ along
+  $q : Q \to \id{M}$,
+  we have the following commutative diagram : 
+  \begin{cd}
+    & {H \delta F Q^2} & {H \delta F Q} \\
+    GQ & {H \delta F Q} & {H \delta F} \\
+    G
+    \arrow["{H \delta F q}", from=2-2, to=2-3]
+    \arrow["\alpha"{description}, from=3-1, to=2-3]
+    \arrow["{\alpha_0}", from=3-1, to=2-2]
+    \arrow["{H \delta F q}", from=1-3, to=2-3]
+    \arrow["{\alpha Q}"{description}, from=2-1, to=1-3]
+    \arrow[from=1-2, to=2-2]
+    \arrow["{H \delta F Q q}", from=1-2, to=1-3]
+    \arrow["Gq"', from=2-1, to=3-1]
+    \arrow["{\alpha_0 Q}", from=2-1, to=1-2]
+  \end{cd}
+  Now the point is that since $q$ has components in weak equivalences of $M$,
+  we have $Gq$ is an isomorphism since 
+  $G$ maps weak equivalences to isomoprhisms,
+  and $H \de F Q q$ is also an isomorphism since $Q$ is homotopical
+  and $F$ is homotopical when restricted to $M_Q$,
+  and $H$ preserves isomorphisms.
+  We can thus solve for $\al_0$ uniquely as 
+  \[
+    \al_0 = (H \de F Q q) (\al_0 Q) (G q)\inv
+    = (H \de F Q q) (H \de F Q q)\inv (\al Q) (G q)\inv
+    = (\al Q) (G q)\inv 
+  \]
+
+  \textit{(2)}
+  Purely formal. Indefinitely postponed.
+
+\end{proof}
+
+\begin{rmk}
+  
+  The above proposition gives another reason for model structures : 
+  given a not necessarily homotopical functor $F : M \to N$ 
+  between homotopical categories,
+  a suitable model structure on $M$ will provide
+  deformations for $F$.
+\end{rmk}
+
+\end{document}

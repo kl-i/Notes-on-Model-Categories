@@ -1,0 +1,174 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+  
+\begin{dfn}[Homotopical Categories]
+
+  A \emph{homotopical category} consists of the following data : 
+  \begin{itemize}
+    \item a category $M$
+    \item a class of morphisms $W$ of $M$
+    \item $W$ contains identity morphisms and satisfies \emph{two-out-of-six}
+  \end{itemize}
+
+  Morphisms in $W$ are called \emph{weak equivalences}.
+  Sometimes $W$ is implicit and we simply say $M$ is a homotopical category.
+\end{dfn}
+
+\begin{eg}
+  \begin{enumerate}
+    \item 
+    Given any category $M$,
+    the class of isomorphisms satisfies two-out-of-six.
+    \item Let $M = \CAT$ the category of (small) categories.
+    Declare $W$ to be the class of categorical-equivalences.
+    Then $W$ satisfies two-out-of-six by application of
+    the previous example on the ``$\Pi_0$'' of categories
+    and maps on hom sets.
+    \item Let $A$ be an abelian category and $\mathrm{Ch}\,A$
+    the category of (unbounded) complexes in $A$.
+    Declare $W$ to be the class of \emph{quasi-isomorphisms},
+    i.e. the morphisms which induce isomorphisms on cohomology.
+    Then $(\mathrm{Ch}\, A , W)$ is homotopical by the previous example.
+
+    This includes the examples : 
+    the category $B\MOD$ of (left) modules over an associative ring $B$,
+    the catgeory $\mathrm{QCoh} X$ of quasi-coherent sheaves on a scheme $X$.
+    \item Let $M = \TOP$ and declare $W$ to be the class of morphisms
+    which induce an isomophism on $\pi_0$ and 
+    $\pi_{> 0}$ at all points.
+    Then $(\TOP , W)$ is again homotopical by the first example.
+  \end{enumerate}
+\end{eg}
+
+\begin{lem}
+  
+  Let $M$ be a category and $W$ a class of morphisms of $M$
+  satisfying two-out-of-six.
+  Then $W$ satisfies two-out-of-three.
+
+  \begin{proof1}
+  \end{proof1}
+\end{lem}
+
+\begin{prop}[1-Categorical Localisation]
+
+  Let $(M , W)$ be a homotopical category.
+  Define the category $M[W \inv]$ by the following data : 
+  \begin{itemize}
+    \item objects of $M[W \inv]$ are the same as those of $M$.
+    \item $M[W \inv](x,y)$ consists of ``fractions of morphisms'' 
+    $(f_0 / g_0) \cdots (f_n / g_n)$ where the $g_i$ are in $W$,
+    quotiented out by removing any ``$f / g$'' with $f , g \in W$
+    and $\id{} / \id{}$.
+
+    These are also sometimes called \emph{zig-zags}.
+    \item Morphisms compose by ``multiplication''.
+    Checking associativity is tedious.
+  \end{itemize}
+  There is a functor $M \to M[W\inv]$
+  that is identity on objects and 
+  maps each morphism $f$ to the equivalence class of $f / \id{}$.
+
+  For any category $N$,
+  define $\CAT_W (M , N)$ to be the full subcategory 
+  of functors $M \to N$ \emph{inverting $W$},
+  i.e. maps morphisms in $W$ to isomorphisms.
+  For any functor $l : M \to L(M)$,
+  we say \emph{$l$ exhibits $L(M)$ as a (weak) localisation of $M$ at $W$}
+  when $l$ inverts $W$ and or any category $N$ we have
+  a categorical equivalence : 
+  \[
+    \_ \circ l : \CAT(L(M) , N) \map{\sim}{} \CAT_W (M , N)
+  \]
+
+  Then $M \to M[W\inv]$ exhibits $M[W\inv]$ as 
+  a (weak) localisation of $M$ at $W$.
+  Furthermore, $M \to M[W\inv]$ is an epimorphism.
+
+  If $W$ is implicit, we use $\HO M$ to denote $M[W\inv]$.
+\end{prop}
+\begin{proof}
+  Nothing unexpected.
+  The morphism $M \to M[W\inv]$ is epi because
+  for any commuting triangle 
+  \begin{cd}
+    M \\
+    {M[W^{-1}]} & N
+    \arrow[from=1-1, to=2-1]
+    \arrow["T", from=1-1, to=2-2]
+    \arrow["{\tilde{T}}"', from=2-1, to=2-2]
+  \end{cd}
+  $\tilde{T}$ sends a zig-zag $(f_0/g_0)\cdots (f_n/g_n)$
+  to $T(f_0)T(g_0)\inv \cdots T(f_n)T(g_n)\inv$,
+  and hence is determined by $T$.
+\end{proof}
+
+\begin{rmk}
+
+  Some motivations for \emph{model structures} via
+  issues with the 1-categorical localisation : 
+  \begin{itemize}
+    \item Using ZFC set theory as foundations,
+    a common issue is that when $M$ has a proper class of objects 
+    (e.g. $M = \SET , \GRP , \RING$ etc),
+    the homs of $M[W\inv]$ are also proper classes.
+    \item The homs of $M[\inv]$ are hard to get your hands on.
+  \end{itemize}
+\end{rmk}
+
+\begin{dfn}[Homotopical Functors]
+
+  Let $(M, W_M)$ and $(N , W_N)$ be homotopical categories.
+  Then a functor $F : M \to N$ is called \emph{homotopical} when
+  $F W_M \subs W_N$.
+\end{dfn}
+
+\begin{eg}
+
+  Let $(M,W)$ be a homotopical category and $F : M \to M$
+  together with $\al : \id{} \to F$ with components in $W$.
+  Then $F$ is homotopical by $W$ satisfying two-out-of-three.
+
+\end{eg}
+
+\begin{ceg}
+  
+  A list of functors between homotopical categories
+  which we wish were homotopical : 
+  \begin{enumerate}
+    \item Let $I$ be a (small) category and $(M,W)$ a homotopical category.
+    Suppose $M$ has colimits of $I$-diagrams, i.e. 
+    we have a functor $\COLIM_I : M^I \to M$ left adjoint to 
+    the constant diagram functor $M \to M^I$.
+    We can give $M^I$ a class of weak equivalences
+    by declaring weak equivalences to be the ones that are
+    component-wise in $W$.
+
+    It would be nice if $\COLIM_I : M^I \to M$ is homotopical 
+    since that would say ``colimits are invariant under $W$''.
+    Unfortunately, this is not true in general.
+
+    Take $M = \TOP$ and $I$ the shape of the diagram for a pushout.
+    A counterexample is then given by the following morphism of diagrams : 
+    \begin{cd}
+      {D^{n+1}} & {S^n} & {D^{n+1}} \\
+      \bullet & {S^n} & \bullet
+      \arrow[from=2-2, to=2-1]
+      \arrow[from=2-2, to=2-3]
+      \arrow[from=1-2, to=1-1]
+      \arrow[from=1-2, to=1-3]
+      \arrow[from=1-1, to=2-1]
+      \arrow[from=1-3, to=2-3]
+      \arrow["{\mathbb{1}}"{description}, from=1-2, to=2-2]
+    \end{cd}
+    All vertical morphisms are weak-equivalences in $\TOP$
+    but the induced map $S^{n+1} \to \bullet$ is 
+    certainly not a weak equivalence.
+    \item TODO : show how non-exactness of functors from homological algebra
+    like tensor and hom can be expressed as non-homotopicalness of the functors.
+  \end{enumerate}
+\end{ceg}
+
+
+
+\end{document}

@@ -1,0 +1,107 @@
+\documentclass[./main.tex]{subfiles}
+\begin{document}
+
+\begin{rmk}
+  Digestion of the exposition on Joyal's nCatLab.
+\end{rmk}
+  
+\begin{dfn}[Model Categeories, Weak factorisation systems, Lifting Properties]
+
+  Let $\EE$ be a category. 
+  For $(L,R)$ a pair of classes of morphisms of $\EE$, 
+  $(L,R)$ is called a \emph{weak factorisation system} when 
+  the following are true : 
+  \begin{itemize}
+    \item any $f \in \EE^\to$ factorises as 
+    \begin{cd}
+      A \ar[dr,"f"{swap}] \ar[r,"l \in L"]
+        & C \ar[d,"r \in R"]\\
+        & B
+    \end{cd}
+    (possibly non-uniquely)
+    \item $L$ is exactly the morphisms that have \emph{left-lifting-property}
+    against all morphisms in $R$.
+    \item $R$ is exactly the morphisms that have \emph{right-lifting-property}
+    against all morphisms in $L$. 
+  \end{itemize}
+
+  Let $(\EE , \s{W})$ be a homotopical category where
+  $\EE$ is finitely complete and finitely cocomplete.
+  A \emph{model structure} is a pair $\s{C}, \s{F}$
+  of classes of families of morphisms in $\EE$ such that : 
+  \begin{itemize}
+    \item $(\s{C} \cap \s{W}, \s{F})$ is a weak factorisation system for $\EE$.
+    \item $(\s{C}, \s{W} \cap \s{F})$ is a weak factorisation system for $\EE$. 
+  \end{itemize}
+  A \emph{model category} is a finitely complete and finitely cocomplete
+  homotopical category equipped with a model structure. 
+\end{dfn}
+
+\begin{dfn}[Homotopy Category, Weak Equivalences/Acyclic Morphisms, 
+  (Co)Fibrations, (Co)Fibrant Objects]
+  
+  Let $(\EE , \s{W} , \s{C} , \s{F})$ be a model category. 
+  \begin{itemize}
+    \item morphisms in $\s{W}$ are called \emph{acyclic}. 
+    Sometimes, they are also called \emph{trivial}.
+    \item morphisms in $\s{C}$ are called \emph{cofibrations}
+    \item morphisms in $\s{F}$ are called \emph{fibrations}
+    \item objects $X$ where $X \to 1$ is a fibration are called 
+    \emph{fibrant}. 
+    \item objects $X$ where $\nothing \to X$ is a cofibration are called 
+    \emph{cofibrant}. 
+    \item objects that are both fibrant and cofibrant, 
+    we call \emph{fibrant-cofibrant}.
+  \end{itemize}
+\end{dfn}
+
+\begin{rmk}
+  Many authors (such as Hovey)
+  require the two factorisations to be \emph{functorial}.
+  This is usually satisfied in practice 
+  (in particular, whenever we have a cofibrantly generated model structure).
+\end{rmk}
+
+\begin{prop}
+
+  Let $(\EE, \s{W} , \s{C} , \s{F})$ be a model category
+  with functorial factorisations.
+  The following square of categories consists of equivalences : 
+  \begin{cd}
+    {\mathbf{Ho}\,\mathcal{E}_{fc}} & {\mathbf{Ho}\,\mathcal{E}_f} \\
+    {\mathbf{Ho}\,\mathcal{E}_c} & {\mathbf{Ho} \, \mathcal{E}}
+    \arrow["\simeq"', from=1-1, to=2-1]
+    \arrow["\simeq"', from=2-1, to=2-2]
+    \arrow["\simeq", from=1-1, to=1-2]
+    \arrow["\simeq", from=1-2, to=2-2]
+  \end{cd}
+\end{prop}
+\begin{proof}
+  The functorial factorisation $(\s{W} \cap \s{C} , \s{F})$
+  gives a right deformation of $\EE$ to $\EE_f$
+  and hence a quasi-inverse to $\HO\,\EE_f \to \HO\,\EE$.
+  Now the functorial factorisation $(\s{C} , \s{W} \cap \s{F})$
+  similarly gives a left deformation of $\EE_{f}$ to $\EE_{fc}$.
+  The rest is analogous.
+\end{proof}
+
+\begin{prop}[Elementary results]
+
+  Let $(\EE, \s{W} , \s{C} , \s{F})$ be a model category. 
+  \begin{enumerate}
+    \item $\s{C},\s{C} \cap \s{W}, \s{F}, \s{F} \cap \s{W}$ 
+    closed under composition and retracts. 
+    \item $\s{F}, \s{F} \cap \s{W}$ closed under base change and product. 
+    \item $\s{C}, \s{C} \cap \s{W}$ closed under cobase change and coproduct. 
+    \item $\s{C} \cap \s{W} \cap \s{F}$ is precisely the isomorphisms. 
+    \item (Tierney) $\s{W}$ closed under retracts. (Slightly non-trivial.)
+    In particular, identity morphisms are in $\s{W}$.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  Besides that last result by Tierney,
+  the rest is rather formal.
+\end{proof}
+
+
+\end{document}
