@@ -251,15 +251,15 @@
       \begin{cd}
         A & PX \\
         IA & {X \times X}
-        \arrow["{i_0}"', tail, from=1-1, to=2-1]
-        \arrow["\sim", two heads, from=1-2, to=2-2]
+        \arrow["{i_0}"', "\sim", tail, from=1-1, to=2-1]
+        \arrow[two heads, from=1-2, to=2-2]
         \arrow["{h_0 , h_1}"', from=2-1, to=2-2]
         \arrow["{v_0}", from=1-1, to=1-2]
       \end{cd}
       But we know that given $A$ cofibrant,
-      we have $i_0 \in \s{C}$.
-      Hence we have a solution since acyclic fibrations
-      right lift against cofibrations.
+      we have $i_0 \in \s{W} \cap \s{C}$.
+      Hence we have a solution since fibrations
+      right lift against acyclic cofibrations.
     \end{proof1}
   \end{lem}
   Now, given $A$ cofibrant and a left homotopy $h_1 : f \map{}{l} g$,
@@ -305,6 +305,35 @@
         \arrow[tail, from=1-1, to=2-1]
         \arrow["\sim"', from=2-1, to=2-2]
       \end{cd}
+      Let $f : A \to B$ in $\EE_c$ be acyclic.
+      Via the mapping cylinder factorisation above and
+      the fact that $A$ is cofibrant, 
+      we have 
+      \begin{cd}
+        A \\
+        {C(f)} & B
+        \arrow["f", from=1-1, to=2-2]
+        \arrow["{i_A}"', tail, from=1-1, to=2-1]
+        \arrow["{q_B}"', from=2-1, to=2-2]
+      \end{cd}
+      For $F(f) \in W$, it suffices that $F(i_A), F(q_B) \in W$.
+      We have $F(i_A)$ because it is an acyclic cofibration by
+      two-out-of-three with $q_B, f \in \s{W}$.
+      For $F(q_B)$, note that since we have 
+      \begin{cd}
+        B \\
+        {C(f)} & B
+        \arrow["{\id{}}", from=1-1, to=2-2]
+        \arrow["{i_B}"', "{\sim}", tail, from=1-1, to=2-1]
+        \arrow["{q_B}"', from=2-1, to=2-2]
+      \end{cd}
+      it suffices to show that $F(i_B) \in W$
+      by two-out-of-three for $W$.
+      Indeed we have $F(i_B) \in F(\s{W} \cap \s{C}) \subs W$ by assumption.
+
+      That technically completes the proof, 
+      but let us make a remark on how to make mapping cylinders
+      for intuition's sake.
       Such a factorisation can be obtained from 
       a cylinder object $(IA , i , \si)$ of $A$ when it is cofibrant 
       by the pushout 
@@ -344,32 +373,6 @@
       $i_0 : A \to IA$.
       Since $A$ is cofibrant, $i_0$ is an acyclic cofibration
       and hence so is $B \to C(f)$.
-
-      Let us now show the result.
-      Let $f : A \to B$ in $\EE_c$.
-      Via the mapping cylinder factorisation above,
-      we have 
-      \begin{cd}
-        A \\
-        {C(f)} & B
-        \arrow["f", from=1-1, to=2-2]
-        \arrow["{i_A}"', tail, from=1-1, to=2-1]
-        \arrow["{q_B}"', from=2-1, to=2-2]
-      \end{cd}
-      For $F(f) \in W$, it suffices that $F(i_A), F(q_B) \in W$.
-      We have $F(i_A)$ because it is an acyclic cofibration by
-      two-out-of-three with $q_B, f \in \s{W}$.
-      For $F(q_B)$, note that since we have 
-      \begin{cd}
-        B \\
-        {C(f)} & B
-        \arrow["{\id{}}", from=1-1, to=2-2]
-        \arrow["{i_B}"', "{\sim}", tail, from=1-1, to=2-1]
-        \arrow["{q_B}"', from=2-1, to=2-2]
-      \end{cd}
-      it suffices to show that $F(i_B) \in W$
-      by two-out-of-three for $W$.
-      Indeed we have $F(i_B) \in F(\s{W} \cap \s{C}) \subs W$ by assumption.
     \end{proof1}
   \end{lem}
   We will use Yoneda's lemma to show $\EE_{fc} \to \pi\EE_{fc}$ inverts
